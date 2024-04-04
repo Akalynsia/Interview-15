@@ -24,10 +24,11 @@ const WordByWord = () => {
     return () => clearInterval(interval);
   }, [words]);
 
-  const handleInputChange = () => {
+  const handleInputChange = (event) => {
     setText(event.target.value);
     setWords([]);
   };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <input
