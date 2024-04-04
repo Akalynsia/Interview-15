@@ -11,11 +11,13 @@ const WordByWord = () => {
   const [isIntervalRunning, setIsIntervalRunning] = useState(false);
 
   useEffect(() => {
-    if (text.trim().slice(-1) !== " " && !isIntervalRunning) {
+    if (
+      !isIntervalRunning &&
+      text.trim() !== "" &&
+      text.trim().slice(-1) !== " "
+    ) {
       setWords(text.trim().split(" "));
-      if (!isIntervalRunning) {
-        setIsIntervalRunning(true);
-      }
+      setIsIntervalRunning(true);
     }
   }, [text, isIntervalRunning]);
 
@@ -27,6 +29,9 @@ const WordByWord = () => {
           newText += " " + words[0];
           setDisplayedText(newText);
           setWords((prevWords) => prevWords.slice(1));
+        } else {
+          clearInterval(interval);
+          setIsIntervalRunning(false);
         }
       }, 500);
 
@@ -37,6 +42,7 @@ const WordByWord = () => {
   const handleInputChange = (event) => {
     setText(event.target.value);
     setWords([]);
+    setDisplayedText("");
     setIsIntervalRunning(false);
   };
 
