@@ -14,20 +14,21 @@ const WordByWord = () => {
   }, [text]);
 
   useEffect(() => {
+    let newText = displayedText;
     const interval = setInterval(() => {
       if (words.length > 0) {
-        setDisplayedText((prevText) => prevText + " " + words[0]);
+        newText += " " + words[0];
+        setDisplayedText(newText);
         setWords((prevWords) => prevWords.slice(1));
       }
     }, 500);
 
     return () => clearInterval(interval);
-  }, [words]);
+  }, [words, displayedText]);
 
   const handleInputChange = (event) => {
     setText(event.target.value);
     setWords([]);
-    setDisplayedText("");
   };
 
   return (
