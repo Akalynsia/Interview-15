@@ -11,7 +11,7 @@ const WordByWord = () => {
   const [isIntervalRunning, setIsIntervalRunning] = useState(false);
 
   useEffect(() => {
-    if (text.trim().slice(-1) !== " ") {
+    if (text.trim().slice(-1) !== " " && !isIntervalRunning) {
       setWords(text.trim().split(" "));
       if (!isIntervalRunning) {
         setIsIntervalRunning(true);
