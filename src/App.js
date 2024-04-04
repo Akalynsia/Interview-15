@@ -8,30 +8,38 @@ const WordByWord = () => {
   const [text, setText] = useState("");
   const [words, setWords] = useState([]);
   const [displayedText, setDisplayedText] = useState("");
+  const [isIntervalRunning, setIsIntervalRunning] = useState(false);
 
   useEffect(() => {
     if (text.trim().slice(-1) !== " ") {
       setWords(text.trim().split(" "));
+      if (!isIntervalRunning) {
+        setIsIntervalRunning(true);
+      }
     }
-  }, [text]);
+  }, [text, isIntervalRunning]);
 
   useEffect(() => {
-    let newText = displayedText;
-    const interval = setInterval(() => {
-      if (words.length > 0) {
-        newText += " " + words[0];
-        setDisplayedText(newText);
-        setWords((prevWords) => prevWords.slice(1));
-      }
-    }, 500);
+    if (isIntervalRunning) {
+      let newText = displayedText;
+      const interval = setInterval(() => {
+        if (words.length > 0) {
+          newText += " " + words[0];
+          setDisplayedText(newText);
+          setWords((prevWords) => prevWords.slice(1));
+        }
+      }, 500);
 
-    return () => clearInterval(interval);
-  }, [words, displayedText]);
+      return () => clearInterval(interval);
+    }
+  }, [words, displayedText, isIntervalRunning]);
 
   const handleInputChange = (event) => {
     setText(event.target.value);
     setWords([]);
+    setIsIntervalRunning(false);
   };
+
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <input
