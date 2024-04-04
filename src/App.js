@@ -5,9 +5,9 @@ function App() {
 }
 
 const WordByWord = () => {
-  // KODUNUZ BURAYA GELECEK
   const [text, setText] = useState("");
   const [words, setWords] = useState([]);
+  const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
     setWords(text.split(" "));
@@ -24,10 +24,12 @@ const WordByWord = () => {
     return () => clearInterval(interval);
   }, [words]);
 
-  const handleInputChange = () => {
+  const handleInputChange = (event) => {
     setText(event.target.value);
     setWords([]);
+    setDisplayedText("");
   };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <input
@@ -37,6 +39,7 @@ const WordByWord = () => {
         className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-blue-500"
         placeholder="Type your text here..."
       />
+      <div className="text-center">{displayedText}</div>
     </div>
   );
 };
