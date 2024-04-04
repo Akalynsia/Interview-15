@@ -10,7 +10,9 @@ const WordByWord = () => {
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
-    setWords(text.trim().split(/\s+/));
+    if (text.trim().slice(-1) !== " ") {
+      setWords(text.trim().split(" "));
+    }
   }, [text]);
 
   useEffect(() => {
@@ -30,7 +32,6 @@ const WordByWord = () => {
     setText(event.target.value);
     setWords([]);
   };
-
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <input
