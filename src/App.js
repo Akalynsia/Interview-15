@@ -10,7 +10,7 @@ const WordByWord = () => {
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
-    setWords(text.split(" "));
+    setWords(text.trim().split(/\s+/));
   }, [text]);
 
   useEffect(() => {
