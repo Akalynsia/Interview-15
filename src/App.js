@@ -16,7 +16,7 @@ const WordByWord = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (words.length > 0) {
-        console.log(words[0]);
+        setDisplayedText((prevText) => prevText + " " + words[0]);
         setWords((prevWords) => prevWords.slice(1));
       }
     }, 500);
@@ -31,12 +31,12 @@ const WordByWord = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-screen">
       <input
         type="text"
         value={text}
         onChange={handleInputChange}
-        className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-blue-500"
+        className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-blue-500 mb-4"
         placeholder="Type your text here..."
       />
       <div className="text-center">{displayedText}</div>
